@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUY HOÀNG | Professional Portfolio</title>
+    <!-- Thư viện chuẩn (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg: #0a0a0a;
+            --card: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.05);
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg); 
+            color: #f3f4f6; 
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .glass { background: var(--card); backdrop-filter: blur(12px); border: 1px solid var(--border); }
+        .text-gradient { background: linear-gradient(to bottom, #fff, #9ca3af); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        section { scroll-margin-top: 80px; }
+        
+        /* Chống giật khi load */
+        #root:empty { display: none; }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; background: #0a0a0a; color: white;">
+            <div style="width: 40px; height: 40px; border: 3px solid #2563eb; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;"></div>
+            <p style="font-family: sans-serif; letter-spacing: 2px;">HUY HOÀNG PORTFOLIO</p>
+        </div>
+    </div>
+
+    <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { motion, AnimatePresence } = window.framerMotion || { motion: { div: 'div' }, AnimatePresence: ({children}) => children };
+
+        // --- DỮ LIỆU ĐẦY ĐỦ ---
+        const DATA = {
+            personal: {
+                name: "HUY HOÀNG",
+                role: "Dynamic Professional",
+                location: "Ha Noi City, VN",
+                phone: "0372126804",
+                email: "Dusk2608@gmail.com",
+                about: "I am a dynamic, enthusiastic, and responsible professional with diverse experience in customer service, sales, and real estate consulting. I am consistently committed to delivering high efficiency and the best possible customer experience.",
+                avatar: "avatar.jpg"
+            },
+            experience: [
+                { role: "Video Ads Editor & Creator", company: "Digital Media Agency", period: "2026 - Present", desc: "Crafting high-impact video advertisements and engaging short-form content for various digital platforms.", skills: ["Video Editing", "Short-form Content", "Visual Storytelling"] },
+                { role: "Intern & Project Strategist", company: "Bytech Company", period: "2025", desc: "Developed and proposed innovative projects to improve company workflows and operational efficiency.", skills: ["Project Management", "Process Improvement", "Strategic Planning"] },
+                { role: "Mobile Tech Support Specialist", company: "Tech Support Center", period: "2023", desc: "Assisted customers with technical troubleshooting, mobile device configurations, and software updates.", skills: ["Technical Support", "Mobile Tech", "Problem Solving"] },
+                { role: "Customer Service Representative", company: "Financial Institution", period: "2022", desc: "Handled financial inquiries and provided tailored solutions for clients. Maintained high customer satisfaction.", skills: ["Customer Service", "Financial Consulting", "Communication"] },
+                { role: "Coffee Shop Staff", company: "Local Coffee Shop", period: "2021", desc: "Provided excellent customer service and maintained shop operations in a fast-paced environment.", skills: ["Customer Relations", "Operations", "Teamwork"] }
+            ],
+            education: [
+                { degree: "Bachelor of Business Administration", school: "University of Economics & Business", period: "2022 - 2026", desc: "Graduated with an Excellent degree. Focused on strategic management, marketing, and business operations.", icon: "graduation-cap" },
+                { degree: "Google Gemini AI Professional Certification", school: "Google Certification", period: "2026", desc: "Advanced certification in leveraging Google Gemini AI models for business productivity.", icon: "award" },
+                { degree: "Microsoft Office Specialist", school: "Information Technology Center", period: "2022 - 2023", desc: "Proficient in advanced Excel, Word, and PowerPoint for professional business documentation.", icon: "cpu" },
+                { degree: "Automobile Driver's License", school: "Department of Transportation", period: "2023", desc: "Licensed for operating passenger vehicles, ensuring mobility and flexibility.", icon: "car" }
+            ],
+            skills: [
+                { name: "Professional Skills", rating: 5, icon: "briefcase", desc: "Expertise in customer service, sales strategy, and real estate consulting." },
+                { name: "Technology Skills", rating: 5, icon: "cpu", desc: "Proficient in Google Gemini AI, MS Office, and digital media editing tools." },
+                { name: "Problem Solving", rating: 5, icon: "zap", desc: "Expertise in handling complex situations and finding efficient solutions." },
+                { name: "Time Management", rating: 4, icon: "clock", desc: "Highly organized with a strong ability to prioritize tasks and meet deadlines." },
+                { name: "Sales Skills", rating: 4, icon: "target", desc: "Proven track record in customer persuasion and real estate consulting." },
+                { name: "Teamwork", rating: 4, icon: "users", desc: "Effective collaborator with strong communication and interpersonal skills." }
+            ],
+            projects: [
+                { 
+                    title: "Video Ads Campaign 2026", 
+                    tech: ["Video Editing", "Short-form Content", "Visual Storytelling"], 
+                    desc: "Developed high-impact video advertisements and short-form content for digital media platforms, focusing on visual storytelling and audience engagement.",
+                    img: "https://res.cloudinary.com/dn1j6dpd7/image/fetch/c_fill,f_auto,q_auto,w_1688/https://partners-blog-cms.livechat.com/app/uploads/2021/03/video-ad-format-thmub.jpg" 
+                },
+                { 
+                    title: "Operational Efficiency", 
+                    tech: ["Strategy", "Process", "Management"], 
+                    desc: "Optimized internal workflows and strategic planning to enhance overall operational performance and team productivity.",
+                    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs6ELKFaQPUG7V48OgMXhcNxbVwOKN0Ckqlg&s" 
+                },
+                { 
+                    title: "Mobile Tech Support", 
+                    tech: ["Technical", "Mobile", "Solving"], 
+                    desc: "Provided comprehensive technical assistance and troubleshooting for mobile devices, ensuring high user satisfaction.",
+                    img: "https://cdn.tgdd.vn/Files/2023/05/17/1530292/1-180523-114510.jpg" 
+                }
+            ]
+        };
+
+        function App() {
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
+            const [activeSection, setActiveSection] = useState('home');
+
+            useEffect(() => { 
+                if (window.lucide) lucide.createIcons(); 
+                
+                const handleScroll = () => {
+                    const sections = ['home', 'about', 'experience', 'skills', 'projects', 'contact'];
+                    const current = sections.find(section => {
+                        const el = document.getElementById(section);
+                        if (el) {
+                            const rect = el.getBoundingClientRect();
+                            return rect.top <= 100 && rect.bottom >= 100;
+                        }
+                        return false;
+                    });
+                    if (current) setActiveSection(current);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const scrollTo = (id) => {
+                document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+                setIsMenuOpen(false);
+            };
+
+            return (
+                <div className="min-h-screen">
+                    {/* Navigation */}
+                    <nav className="fixed top-0 w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5 py-4">
+                        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+                            <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollTo('home')}>
+                                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                                    <i data-lucide="terminal" className="w-5 h-5 text-white"></i>
+                                </div>
+                                <span className="text-xl font-bold tracking-tighter">{DATA.personal.name}</span>
+                            </div>
+                            <div className="hidden md:flex gap-8 items-center">
+                                {['About', 'Experience', 'Skills', 'Projects', 'Contact'].map(item => (
+                                    <button 
+                                        key={item} 
+                                        onClick={() => scrollTo(item.toLowerCase())} 
+                                        className={`text-sm font-medium transition-colors hover:text-blue-500 ${activeSection === item.toLowerCase() ? 'text-blue-500' : 'text-gray-400'}`}
+                                    >
+                                        {item}
+                                    </button>
+                                ))}
+                                <a href={`mailto:${DATA.personal.email}`} className="px-5 py-2 bg-blue-600 rounded-full text-sm font-bold hover:bg-blue-700 transition-all">Resume</a>
+                            </div>
+                            <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                                <i data-lucide={isMenuOpen ? "x" : "menu"}></i>
+                            </button>
+                        </div>
+                        {/* Mobile Nav */}
+                        <AnimatePresence>
+                            {isMenuOpen && (
+                                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="md:hidden bg-[#0f0f0f] border-b border-white/5 px-6 py-6 flex flex-col gap-4 overflow-hidden">
+                                    {['About', 'Experience', 'Skills', 'Projects', 'Contact'].map(item => (
+                                        <button key={item} onClick={() => scrollTo(item.toLowerCase())} className="text-left text-lg font-medium text-gray-400 hover:text-white">{item}</button>
+                                    ))}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </nav>
+
+                    {/* Hero */}
+                    <section id="home" className="pt-48 pb-32 px-6 text-center relative overflow-hidden">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
+                            <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/10 blur-[120px] rounded-full"></div>
+                            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 blur-[120px] rounded-full"></div>
+                        </div>
+                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+                            <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-6 inline-block">Available for new opportunities</span>
+                            <h1 className="text-6xl md:text-8xl font-black mb-6 text-gradient leading-tight">
+                                Dynamic Professional <br/> Focused on Excellence
+                            </h1>
+                            <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 mb-10 leading-relaxed">
+                                I'm <span className="text-white font-semibold">{DATA.personal.name}</span>, {DATA.personal.about}
+                            </p>
+                            <div className="flex flex-wrap justify-center gap-4">
+                                <button onClick={() => scrollTo('projects')} className="px-10 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all flex items-center gap-2">View My Work <i data-lucide="chevron-right" className="w-4 h-4"></i></button>
+                                <button onClick={() => scrollTo('contact')} className="px-10 py-4 glass text-white font-bold rounded-full hover:bg-white/10 transition-all">Contact Me</button>
+                            </div>
+                        </motion.div>
+                    </section>
+
+                    {/* About */}
+                    <section id="about" className="py-32 bg-[#0f0f0f]">
+                        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+                            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+                                <h2 className="text-4xl font-bold mb-10 flex items-center gap-4">
+                                    <span className="w-12 h-1 bg-blue-600 rounded-full"></span> About Me
+                                </h2>
+                                <div className="space-y-8 text-gray-400 text-lg leading-relaxed">
+                                    <p>{DATA.personal.about}</p>
+                                    <div className="grid sm:grid-cols-2 gap-8 mt-10">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-xl glass flex items-center justify-center text-blue-500"><i data-lucide="map-pin"></i></div>
+                                            <div><p className="text-xs font-bold text-gray-500 uppercase">Location</p><p className="text-white font-medium">{DATA.personal.location}</p></div>
+                                        </div>
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-xl glass flex items-center justify-center text-blue-500"><i data-lucide="phone"></i></div>
+                                            <div><p className="text-xs font-bold text-gray-500 uppercase">Phone</p><p className="text-white font-medium">{DATA.personal.phone}</p></div>
+                                        </div>
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-xl glass flex items-center justify-center text-blue-500"><i data-lucide="graduation-cap"></i></div>
+                                            <div><p className="text-xs font-bold text-gray-500 uppercase">Education</p><p className="text-white font-medium">Business Admin</p></div>
+                                        </div>
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 rounded-xl glass flex items-center justify-center text-blue-500"><i data-lucide="mail"></i></div>
+                                            <div><p className="text-xs font-bold text-gray-500 uppercase">Email</p><p className="text-white font-medium">{DATA.personal.email}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="relative">
+                                <div className="aspect-[4/5] md:aspect-square rounded-3xl overflow-hidden border border-white/10 transition-all duration-700 shadow-2xl">
+                                    <img 
+                                        src={DATA.personal.avatar} 
+                                        className="w-full h-full object-cover object-top" 
+                                        alt="Portrait" 
+                                        referrerPolicy="no-referrer" 
+                                    />
+                                </div>
+                                <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-blue-600/20 blur-[100px] rounded-full -z-10"></div>
+                            </motion.div>
+                        </div>
+                    </section>
+
+                    {/* Experience */}
+                    <section id="experience" className="py-32">
+                        <div className="max-w-7xl mx-auto px-6">
+                            <div className="grid lg:grid-cols-2 gap-20">
+                                <div>
+                                    <h2 className="text-4xl font-bold mb-16 flex items-center gap-4"><i data-lucide="briefcase" className="text-blue-500"></i> Experience</h2>
+                                    <div className="space-y-12 relative before:absolute before:left-[19px] before:top-2 before:bottom-2 before:w-[2px] before:bg-white/10">
+                                        {DATA.experience.map((exp, i) => (
+                                            <motion.div key={i} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="relative pl-12">
+                                                <div className="absolute left-0 top-1 w-10 h-10 rounded-full bg-[#0a0a0a] border-2 border-blue-600 flex items-center justify-center z-10">
+                                                    <div className="w-2 h-2 rounded-full bg-blue-600"></div>
+                                                </div>
+                                                <div className="p-8 rounded-3xl glass hover:border-blue-500/30 transition-all">
+                                                    <div className="flex flex-col sm:flex-row justify-between mb-2 gap-2">
+                                                        <h3 className="text-2xl font-bold text-white">{exp.role}</h3>
+                                                        <span className="text-xs font-bold text-blue-500 bg-blue-500/10 px-3 py-1 rounded-full h-fit">{exp.period}</span>
+                                                    </div>
+                                                    <p className="text-blue-400 font-medium mb-4">{exp.company}</p>
+                                                    <p className="text-gray-400 leading-relaxed mb-6">{exp.desc}</p>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {exp.skills.map(s => <span key={s} className="text-[10px] px-2 py-1 rounded bg-white/5 text-gray-500 border border-white/5">{s}</span>)}
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2 className="text-4xl font-bold mb-16 flex items-center gap-4"><i data-lucide="graduation-cap" className="text-blue-500"></i> Education</h2>
+                                    <div className="space-y-8">
+                                        {DATA.education.map((edu, i) => (
+                                            <motion.div key={i} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="p-8 rounded-3xl glass relative overflow-hidden group hover:border-blue-500/30 transition-all">
+                                                <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity"><i data-lucide={edu.icon} className="w-12 h-12"></i></div>
+                                                <span className="text-xs font-bold text-blue-500 mb-2 block">{edu.period}</span>
+                                                <h3 className="text-2xl font-bold mb-1">{edu.degree}</h3>
+                                                <p className="text-blue-400 font-medium mb-4">{edu.school}</p>
+                                                <p className="text-gray-400 leading-relaxed">{edu.desc}</p>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Skills */}
+                    <section id="skills" className="py-32 bg-[#0f0f0f]">
+                        <div className="max-w-7xl mx-auto px-6">
+                            <div className="text-center mb-20">
+                                <h2 className="text-4xl font-bold mb-4">Core Competencies</h2>
+                                <p className="text-gray-400">Key professional strengths and expertise levels.</p>
+                            </div>
+                            <div className="grid md:grid-cols-2 gap-8">
+                                {DATA.skills.map((skill, i) => (
+                                    <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="p-8 rounded-3xl glass flex flex-col sm:flex-row gap-8 items-start sm:items-center hover:border-blue-500/30 transition-all">
+                                        <div className="w-16 h-16 rounded-2xl bg-blue-600/10 flex items-center justify-center text-blue-500 shrink-0"><i data-lucide={skill.icon} className="w-8 h-8"></i></div>
+                                        <div className="flex-1">
+                                            <div className="flex justify-between items-center mb-3">
+                                                <h3 className="text-2xl font-bold">{skill.name}</h3>
+                                                <div className="flex gap-1">
+                                                    {[...Array(5)].map((_, sIdx) => <i key={sIdx} data-lucide="star" className={`w-4 h-4 ${sIdx < skill.rating ? 'fill-blue-500 text-blue-500' : 'text-gray-700'}`}></i>)}
+                                                </div>
+                                            </div>
+                                            <p className="text-gray-400 leading-relaxed">{skill.desc}</p>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Projects */}
+                    <section id="projects" className="py-32">
+                        <div className="max-w-7xl mx-auto px-6">
+                            <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
+                                <div>
+                                    <h2 className="text-4xl font-bold mb-4">Featured Projects</h2>
+                                    <p className="text-gray-400">A selection of my recent work and creative projects.</p>
+                                </div>
+                                <button className="text-blue-500 font-bold flex items-center gap-2 hover:underline">View all projects <i data-lucide="external-link" className="w-4 h-4"></i></button>
+                            </div>
+                            <div className="grid lg:grid-cols-3 gap-10">
+                                {DATA.projects.map((p, i) => (
+                                    <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="group rounded-3xl overflow-hidden glass hover:border-white/20 transition-all">
+                                        <div className="aspect-video overflow-hidden relative">
+                                            <img src={p.img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={p.title} referrerPolicy="no-referrer" />
+                                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                                                <div className="p-3 bg-white text-black rounded-full cursor-pointer"><i data-lucide="github" className="w-5 h-5"></i></div>
+                                                <div className="p-3 bg-white text-black rounded-full cursor-pointer"><i data-lucide="external-link" className="w-5 h-5"></i></div>
+                                            </div>
+                                        </div>
+                                        <div className="p-8">
+                                            <h3 className="text-2xl font-bold mb-3 group-hover:text-blue-500 transition-colors">{p.title}</h3>
+                                            <p className="text-gray-400 text-sm mb-6 leading-relaxed">{p.desc}</p>
+                                            <div className="flex flex-wrap gap-3">
+                                                {p.tech.map(t => <span key={t} className="text-[10px] uppercase tracking-widest font-black text-amber-500/80">{t}</span>)}
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Contact */}
+                    <section id="contact" className="py-32 bg-[#0f0f0f] relative overflow-hidden">
+                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
+                            <div className="absolute bottom-[-20%] left-1/2 -translate-x-1/2 w-[60%] h-[60%] bg-blue-600/5 blur-[120px] rounded-full"></div>
+                        </div>
+                        <div className="max-w-4xl mx-auto px-6 text-center">
+                            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                                <h2 className="text-5xl md:text-6xl font-black mb-8">Get In Touch</h2>
+                                <p className="text-gray-400 text-xl mb-12 leading-relaxed">
+                                    I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                                </p>
+                                <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-20">
+                                    <a href={`mailto:${DATA.personal.email}`} className="w-full sm:w-auto px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-full transition-all transform hover:scale-105 flex items-center justify-center gap-3 shadow-2xl shadow-blue-600/20"><i data-lucide="mail"></i> Email Me</a>
+                                    <a href={`tel:${DATA.personal.phone}`} className="w-full sm:w-auto px-10 py-5 glass hover:bg-white/10 text-white font-black rounded-full transition-all transform hover:scale-105 flex items-center justify-center gap-3"><i data-lucide="phone"></i> {DATA.personal.phone}</a>
+                                </div>
+                                <div className="pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+                                    <p className="text-gray-500 font-medium">© 2026 {DATA.personal.name}. Built with React & Tailwind.</p>
+                                    <div className="flex gap-8">
+                                        <i data-lucide="github" className="w-6 h-6 text-gray-500 hover:text-white cursor-pointer transition-colors"></i>
+                                        <i data-lucide="linkedin" className="w-6 h-6 text-gray-500 hover:text-white cursor-pointer transition-colors"></i>
+                                        <i data-lucide="mail" className="w-6 h-6 text-gray-500 hover:text-white cursor-pointer transition-colors"></i>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </section>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

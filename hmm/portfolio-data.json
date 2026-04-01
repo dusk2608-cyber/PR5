@@ -1,0 +1,70 @@
+{
+  "theme": {
+    "primary": "#2563eb",
+    "primaryHover": "#1d4ed8",
+    "background": "#0a0a0a",
+    "sectionBackground": "#0f0f0f",
+    "cardBackground": "rgba(255, 255, 255, 0.03)",
+    "cardBorder": "rgba(255, 255, 255, 0.05)",
+    "accent": "#9333ea",
+    "textMain": "#f3f4f6",
+    "textMuted": "#9ca3af",
+    "navBackground": "rgba(10, 10, 10, 0.8)",
+    "skillStarFilled": "#2563eb",
+    "skillStarEmpty": "#374151"
+  },
+  "personal": {
+    "name": "HUY HOÀNG",
+    "role": "Dynamic Professional",
+    "location": "Ha Noi City, VN",
+    "phone": "0372126804",
+    "email": "Dusk2608@gmail.com",
+    "about": "I am a dynamic, enthusiastic, and responsible professional with diverse experience in customer service, sales, and real estate consulting. I am consistently committed to delivering high efficiency and the best possible customer experience.",
+    "avatar": "https://ais-dev-pf6xdiroiytkxyaaj6lqni-750385998051.asia-southeast1.run.app/api/attachments/huyhoang_portrait.jpg"
+  },
+  "experience": [
+    {
+      "role": "Video Ads Editor & Creator",
+      "company": "Digital Media Agency",
+      "period": "2026 - Present",
+      "description": "Crafting high-impact video advertisements and engaging short-form content for various digital platforms.",
+      "skills": ["Video Editing", "Short-form Content", "Visual Storytelling"]
+    },
+    {
+      "role": "Intern & Project Strategist",
+      "company": "Bytech Company",
+      "period": "2025",
+      "description": "Developed and proposed innovative projects to improve company workflows and operational efficiency.",
+      "skills": ["Project Management", "Process Improvement", "Strategic Planning"]
+    },
+    {
+      "role": "Mobile Tech Support Specialist",
+      "company": "Tech Support Center",
+      "period": "2023",
+      "description": "Assisted customers with technical troubleshooting and mobile device configurations.",
+      "skills": ["Technical Support", "Mobile Tech", "Problem Solving"]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Business Administration",
+      "school": "University of Economics & Business",
+      "period": "2022 - 2026",
+      "description": "Graduated with an Excellent degree. Focused on strategic management and business operations."
+    },
+    {
+      "degree": "Google Gemini AI Professional Certification",
+      "school": "Google Certification",
+      "period": "2026",
+      "description": "Advanced certification in leveraging AI models for business productivity."
+    }
+  ],
+  "skills": [
+    { "name": "Professional Skills", "rating": 5, "description": "Expertise in customer service and sales strategy." },
+    { "name": "Technology Skills", "rating": 5, "description": "Proficient in AI tools and digital media editing." },
+    { "name": "Problem Solving", "rating": 5, "description": "Expertise in handling complex situations." },
+    { "name": "Time Management", "rating": 4, "description": "Highly organized and deadline-oriented." },
+    { "name": "Sales Skills", "rating": 4, "description": "Proven track record in real estate consulting." },
+    { "name": "Teamwork", "rating": 4, "description": "Effective collaborator and communicator." }
+  ]
+}

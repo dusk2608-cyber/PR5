@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huy Hoàng | Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- React & Framer Motion CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0a0a0a; color: #f3f4f6; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { motion, AnimatePresence } = window.framerMotion;
+
+        const DATA = {
+            personal: {
+                name: "HUY HOÀNG",
+                location: "Ha Noi City, VN",
+                phone: "0372126804",
+                email: "Dusk2608@gmail.com",
+                about: "I am a dynamic, enthusiastic, and responsible professional with diverse experience in customer service, sales, and real estate consulting. I am consistently committed to delivering high efficiency and the best possible customer experience.",
+                avatar: "https://ais-dev-pf6xdiroiytkxyaaj6lqni-750385998051.asia-southeast1.run.app/api/attachments/huyhoang_portrait.jpg"
+            },
+            experience: [
+                { role: "Video Ads Editor & Creator", company: "Digital Media Agency", period: "2026 - Present", desc: "Crafting high-impact video advertisements and engaging short-form content." },
+                { role: "Intern & Project Strategist", company: "Bytech Company", period: "2025", desc: "Developed innovative projects to improve company workflows and operational efficiency." },
+                { role: "Mobile Tech Support Specialist", company: "Tech Support Center", period: "2023", desc: "Assisted customers with technical troubleshooting and mobile device configurations." }
+            ],
+            education: [
+                { degree: "Bachelor of Business Administration", school: "University of Economics & Business", period: "2022 - 2026", desc: "Graduated with an Excellent degree. Focused on strategic management." },
+                { degree: "Google Gemini AI Certification", school: "Google Certification", period: "2026", desc: "Advanced certification in leveraging AI models for business productivity." }
+            ],
+            skills: [
+                { name: "Professional Skills", rating: 5 },
+                { name: "Technology Skills", rating: 5 },
+                { name: "Problem Solving", rating: 5 },
+                { name: "Time Management", rating: 4 },
+                { name: "Sales Skills", rating: 4 },
+                { name: "Teamwork", rating: 4 }
+            ]
+        };
+
+        function App() {
+            useEffect(() => { lucide.createIcons(); }, []);
+
+            return (
+                <div className="min-h-screen">
+                    {/* Hero Section */}
+                    <section className="pt-32 pb-20 text-center px-4">
+                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                            <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-6 inline-block">Available for new opportunities</span>
+                            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
+                                {DATA.personal.name}
+                            </h1>
+                            <p className="max-w-2xl mx-auto text-lg text-gray-400 mb-10 leading-relaxed">
+                                {DATA.personal.about}
+                            </p>
+                            <div className="flex justify-center gap-4">
+                                <a href={`mailto:${DATA.personal.email}`} className="px-8 py-4 bg-blue-600 text-white font-bold rounded-full hover:bg-blue-700 transition-all">Contact Me</a>
+                                <a href={`tel:${DATA.personal.phone}`} className="px-8 py-4 bg-white/5 text-white font-bold rounded-full border border-white/10 hover:bg-white/10 transition-all">Call Now</a>
+                            </div>
+                        </motion.div>
+                    </section>
+
+                    {/* About Section */}
+                    <section className="py-24 bg-[#0f0f0f]">
+                        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+                            <div>
+                                <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
+                                    <span className="w-8 h-1 bg-blue-600 rounded-full"></span> About Me
+                                </h2>
+                                <div className="space-y-6 text-gray-400">
+                                    <p>{DATA.personal.about}</p>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div><p className="text-xs font-bold text-gray-500 uppercase">Location</p><p className="text-white">{DATA.personal.location}</p></div>
+                                        <div><p className="text-xs font-bold text-gray-500 uppercase">Email</p><p className="text-white">{DATA.personal.email}</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="relative">
+                                <img src={DATA.personal.avatar} className="rounded-2xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-500 w-full aspect-square object-cover" />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Skills Section */}
+                    <section className="py-24">
+                        <div className="max-w-6xl mx-auto px-6">
+                            <h2 className="text-3xl font-bold mb-12 text-center">Core Competencies</h2>
+                            <div className="grid md:grid-cols-2 gap-8">
+                                {DATA.skills.map((skill, idx) => (
+                                    <div key={idx} className="p-6 rounded-2xl glass flex justify-between items-center">
+                                        <span className="font-bold text-lg">{skill.name}</span>
+                                        <div className="flex gap-1">
+                                            {[...Array(5)].map((_, i) => (
+                                                <i key={i} data-lucide="star" className={`w-4 h-4 ${i < skill.rating ? 'fill-blue-500 text-blue-500' : 'text-gray-700'}`}></i>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="py-12 border-t border-white/5 text-center text-gray-500 text-sm">
+                        <p>© 2026 {DATA.personal.name}. Built with React & Tailwind.</p>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
